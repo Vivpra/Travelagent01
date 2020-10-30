@@ -1,0 +1,13 @@
+---
+- hosts: local
+  tasks:
+    - name: Start the container
+      docker_container:
+        name: travelagents
+        image: "travelagent:{{DOCKER_TAG}}"
+        state: started
+        published_ports:
+          - 0.0.0.0:5090:8080
+
+     - name: cAdvisor web container
+       shell: docker run -d --name=monitor -p 8701:8080 --volume=/:/rootfs:ro --volume=/var/run:/var/run:rw --volume=/sys:/sys:ro --volume=/var/lib/docker/:/var/lib/docker:ro --volume=/dev/disk/:/dev/disk:ro --tty=true --detach=true google/cadvisor:latest

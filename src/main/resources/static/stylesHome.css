@@ -1,0 +1,84 @@
+body{
+	backdrop-filter: blur(0.5px);
+	margin:0;
+	color:#6a6f8c;
+	background:url(https://cdn.pixabay.com/photo/2018/08/21/23/29/fog-3622519_960_720.jpg)no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  padding-top:75px;
+  font:600 16px/18px 'Open Sans',sans-serif;
+  
+}
+
+.search-container{
+  width: 490px;
+  display: block;
+  margin: 0 auto;
+}
+.popular{
+	color: black;
+	text-align:center;
+	font-weight:bold;
+	margin-bottom:15px;
+	font-size: 30px;
+	background: rgba(204, 204, 204, 0.1);
+}
+
+.wel{
+	color: black;
+	text-align:center;
+	font-weight:bold;
+	margin-bottom:5px;
+	font-size: 30px;
+	background: rgba(204, 204, 204, 0.1);
+}
+
+input#search-bar{
+  margin: 0 auto;
+  width: 100%;
+  height: 45px;
+  padding: 0 20px;
+  font-size: 1rem;
+  border: 1px solid #D0CFCE;
+  outline: none;
+  
+ }
+
+.mr-n2 {
+  margin-right: -.75em !important;
+}
+.card-img-avatar {
+  height: 80px;
+  width: 80px;
+  margin: -40px auto 0 auto;
+  
+}
+
+.b5 {
+  margin:40px;
+  padding: 9px 20px;
+  position: relative;
+  right: -157px;
+  background-color: white;
+  color: black;
+  border:none;
+}
+
+.b5:hover {
+
+  outline: 2px solid;
+}
+
+.search-icon{
+  position: relative;
+  float: right;
+  width: 75px;
+  height: 75px;
+  top: -58px;
+  right: -15px;
+}
+
+
+
