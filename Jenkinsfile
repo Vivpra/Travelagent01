@@ -8,12 +8,7 @@ SERVER_ID='central'
   }
     
     stages{
-            stage ('SCM Checkout') {  
-                steps {  
-                    echo 'Running build phase...'  
-                   git 'file://///home/cicd/Downloads/Travelagent'
-                }  
-            } 
+         
                       stage ('Build') {  
                 steps {  
                     echo 'Running build phase...'  
