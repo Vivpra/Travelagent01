@@ -8,6 +8,12 @@ SERVER_ID='central'
   }
     
     stages{
+            stage ('SCM Checkout') {  
+                steps {  
+                    echo 'Running build phase...'  
+                   git 'file://///home/cicd/Downloads/Travelagent'
+                }  
+            } 
                       stage ('Build') {  
                 steps {  
                     echo 'Running build phase...'  
@@ -93,15 +99,23 @@ copy: true
                    stage ('Depoly and Monitor') 
             {  
                 steps {  
-                  
-                    
-                sh 'docker container stop $(docker container ls -q  --filter  name=monitor*)'
-                    sh 'docker rm $(docker container ls -q --filter  name=monitor*)'					
+				script{
+                    try{
+                        sh 'docker rm $(docker stop monitor)'
+                    }
+                    catch(err)
+                    {
+                        echo "Container is not present"
+                    }
+                   
+              //sh 'docker rm $(docker stop monitor)'	
 				
-                  ansiblePlaybook credentialsId: 'cicd', disableHostKeyChecking: true, extras: "-e DOCKER_TAG=${DOCKER_TAG}", installation: 'ansible', inventory: 'dev.in', playbook: 'ansiblejenkins.yml' 
+
                 
                 
-                }   
+                }
+                                  ansiblePlaybook credentialsId: 'cicd', disableHostKeyChecking: true, extras: "-e DOCKER_TAG=${DOCKER_TAG}", installation: 'ansible', inventory: 'dev.in', playbook: 'ansiblejenkins.yml' 
+}				
                 }
                 
             
