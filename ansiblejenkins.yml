@@ -11,6 +11,6 @@
     - name: Delete the container
       shell: docker container stop $(docker container ls -q  --filter  name=monitor*)
       shell: docker container rm $(docker container ls  --filter  name=monitor*)
-      shell: ignore_errors: true
+      ignore_errors: true
     - name: cAdvisor
       shell: docker run -d --name=monitor -p 8701:8080 --volume=/:/rootfs:ro --volume=/var/run:/var/run:rw --volume=/sys:/sys:ro --volume=/var/lib/docker/:/var/lib/docker:ro --volume=/dev/disk/:/dev/disk:ro --tty=true --detach=true google/cadvisor:latest
