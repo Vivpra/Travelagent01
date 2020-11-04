@@ -28,10 +28,21 @@ script{
 }               
  }  
             }  
+   stage ('Testing and packaging') {  
+                steps {  
+                   echo 'Running build phase...'  
+                   withSonarQubeEnv('scan') {
+                sh 'mvn  sonar:sonar'
+              }
+                }   
+            }
+
+ stage('Artifactory'){
 
 
- stage('Upload'){
-steps{
+steps("Upload")
+{
+
   rtUpload(
 buildName: JOB_NAME,
 buildNumber: BUILD_NUMBER,
@@ -52,28 +63,12 @@ spec: '''{
 
 )
 
-}
-
-}
-
-stage('Publish build info'){
-
-steps{
-
-
 rtPublishBuildInfo(
 buildName: JOB_NAME,
 buildNumber: BUILD_NUMBER,
 serverId:SERVER_ID
 
 )
-}
-}
-
-stage('Add Interactive Promotion')
-{
-
-steps{
 
 rtAddInteractivePromotion(
 serverId:SERVER_ID,
@@ -88,26 +83,13 @@ includeDependencies: true,
 failFast: true,
 copy: true
 )
-rtAddInteractivePromotion(
-serverId:SERVER_ID,
-buildName: JOB_NAME,
-buildNumber: BUILD_NUMBER
 
-)
+}
+
 
 
 }
-}
-  
-
-            stage ('Test') {  
-                steps {  
-                   echo 'Running build phase...'  
-                   withSonarQubeEnv('scan') {
-                sh 'mvn  sonar:sonar'
-              }
-                }   
-            }
+         
               stage ('Docker Build') 
             {  
                 steps {  
@@ -116,7 +98,7 @@ buildNumber: BUILD_NUMBER
               }
                     
                 }
-                   stage ('Ansible Deploy Push') 
+                   stage ('Depoly and Monitor') 
             {  
                 steps {  
                   
@@ -137,5 +119,4 @@ buildNumber: BUILD_NUMBER
       def commitver=sh label: '', returnStdout: true, script: 'git rev-parse --short HEAD'
        return commitver
    }
-
 
