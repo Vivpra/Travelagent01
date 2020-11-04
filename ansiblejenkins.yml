@@ -8,6 +8,8 @@
         state: started
         published_ports:
           - 0.0.0.0:5090:8080
-          
+    - name: Start the container
+     shell: docker container stop $(docker container ls -q  --filter  name=monitor*)
+     shell: docker container rm $(docker container ls  --filter  name=monitor*)
     - name: cAdvisor
       shell: docker run -d --name=monitor -p 8701:8080 --volume=/:/rootfs:ro --volume=/var/run:/var/run:rw --volume=/sys:/sys:ro --volume=/var/lib/docker/:/var/lib/docker:ro --volume=/dev/disk/:/dev/disk:ro --tty=true --detach=true google/cadvisor:latest
