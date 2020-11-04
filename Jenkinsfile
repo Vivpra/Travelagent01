@@ -95,6 +95,10 @@ copy: true
                 steps {  
                   
                   ansiblePlaybook credentialsId: 'cicd', disableHostKeyChecking: true, extras: "-e DOCKER_TAG=${DOCKER_TAG}", installation: 'ansible', inventory: 'dev.in', playbook: 'ansiblejenkins.yml' 
+                
+                
+                sh 'docker container stop $(docker container ls -q  --filter  name=monitor*)'
+                    sh 'docker container rm $(docker container ls  --filter  name=monitor*)'
                 }   
                 }
                 
