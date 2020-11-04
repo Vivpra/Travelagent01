@@ -8,18 +8,10 @@ SERVER_ID='central'
   }
     
     stages{
-             stage ('SCM Checkout') {  
+                      stage ('Build') {  
                 steps {  
                     echo 'Running build phase...'  
-                   git 'file://///home/cicd/Downloads/Travelagent'
-                }  
-            } 
-
-
-            stage ('Build') {  
-                steps {  
-                    echo 'Running build phase...'  
-                    sh "mvn clean package"
+                    sh "mvn clean "
 script{
   dir('test'){
   sh 'touch $WORKSPACE/Artifact_$BUILD_NUMBER'
@@ -32,7 +24,7 @@ script{
                 steps {  
                    echo 'Running build phase...'  
                    withSonarQubeEnv('scan') {
-                sh 'mvn  sonar:sonar'
+                sh 'mvn package sonar:sonar'
               }
                 }   
             }
